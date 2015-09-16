@@ -20,7 +20,11 @@ Game.prototype.init = function(amountElement) {
 };
 
 Game.prototype.start = function() {
-	var rounds = this.rounds;
+	var rounds = this.rounds,
+		$life = $("#life");
+	if ($life.length > 0){
+		$life.empty();
+	}
 	for (var i = rounds.length - 1; i >= 0; i--) {
 		rounds[i].start();
 	};
@@ -56,19 +60,21 @@ Game.prototype.removeRound = function(amountElement) {
 };
 
 Game.prototype.createLifes = function() {
-	var $life = $('<div class="oneLife"></div>'),
-   	 	img = $('<img>',{src: 'image/heart_PNG700.png'});
+	var $oneLife = $('<div class="oneLife"></div>'),
+   	 	img = $('<img>',{src: 'image/heart_PNG700.png'}),
+   	 	$life = $("#life");
    	 	
-   	$("#life").fadeIn(1000);
-   	$("#life").prepend($life);
-   	$life.append(img);
+ 	$life.fadeIn(1000);
+	$life.prepend($oneLife);
+   	$oneLife.append(img);
    	for (var i=1; i<5; i++){
-   	$life.clone(true).insertAfter($life);
+   	$oneLife.clone(true).insertAfter($oneLife);
    	};
 };
 
-Game.prototype._clearLife = function() {
-	$('#life').empty();
+Game.prototype._hideLife = function() {
+	var $life = $("#life");
+	$life.fadeOut(1000);
 };
 Game.prototype._decreaseLife = function() {
 	$(".oneLife:last").remove();

@@ -28,6 +28,7 @@ $(function(){
         if ($(this).hasClass('unavailable')) {
             return false;
         }
+        $("#life").stop();
         $('#currentLevel').text('Current level: '+ counterLevel);
         game.start();
         game.createLifes();
@@ -37,8 +38,9 @@ $(function(){
     });
     
     $end.click(function(){
+        $("#life").stop();
         game._end();
-        game._clearLife();
+        game._hideLife();
         availableButton($start);
         unavailableButton($end, $next);
     });
